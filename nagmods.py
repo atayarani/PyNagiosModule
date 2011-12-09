@@ -8,8 +8,6 @@ class Nagios(object):
     def __init__(self,filename):
         self.config_path="/cfengine/etc/nagios/configs/autogen/"
         self.file=open(self.config_path+filename,'w')
-        self.master_host_listing='/sysman/install/broad/master.host.listing'
-        self.MHL=open(self.master_host_listing,'r')
 
     def host(self,use='generic-host',host_name='',address='',alias='',
         name='',register='',hostgroups='',contact_groups='',
