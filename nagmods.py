@@ -1,13 +1,23 @@
 #!/usr/bin/env python
+from os.path import basename
 from re import match
 from socket import gethostbyname
 from sys import argv
+from time import strftime
 
 class Nagios(object):
 
     def __init__(self,filename):
         self.config_path="/cfengine/etc/nagios/configs/autogen/"
         self.file=open(self.config_path+filename,'w')
+        self.warning=("#\n"
+                    "# PLEASE DO NOT MODIFY THE CONTENTS OF THIS FILE."
+                    "  This file is auto-generated\n"
+                    "# by the `%s` script.\n" 
+                    "#\n"
+                    "# Last generated: %s\n" 
+                    "#\n\n"
+                    % (basename(argv[0]),strftime("%m/%d/%Y %T")))
 
     def host(self,use='generic-host',host_name='',address='',alias='',
         name='',register='',hostgroups='',contact_groups='',
