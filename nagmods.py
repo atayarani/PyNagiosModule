@@ -8,8 +8,6 @@ class Nagios(object):
     def __init__(self,filename):
         self.config_path="/cfengine/etc/nagios/configs/autogen/"
         self.file=open(self.config_path+filename,'w')
-        self.master_host_listing='/sysman/install/broad/master.host.listing'
-        self.MHL=open(self.master_host_listing,'r')
 
     def host(self,use='generic-host',host_name='',address='',alias='',
         name='',register='',hostgroups='',contact_groups='',
@@ -40,11 +38,11 @@ class Nagios(object):
         if contacts != '':
             info_list.append("\tcontacts\t\t\t\t%s" % contacts)
         if notification_interval != '':
-            info_list.append('\tnotification_interval\t\t%s' 
+            info_list.append('\tnotification_interval\t\t%s'
                                % notification_interval)
         if notifications_enabled != '':
             info_list.append('\tnotifications_enabled\t\t%s'
-                                % notifications_enabled) 
+                                % notifications_enabled)
         if notification_options != '':
             info_list.append('\tnotification_options\t\t%s'
                                 % notification_options)
@@ -73,9 +71,9 @@ class Nagios(object):
         contact_groups='', first_notification='',
         last_notification='',contacts=''):
         info_list=['define serviceescalation{']
-        
+
         if hostgroup_name != '':
-            info_list.append('\thostgroup_name\t\t\t%s' 
+            info_list.append('\thostgroup_name\t\t\t%s'
                               % hostgroup_name)
         if host_name != '':
             info_list.append('\thost_name\t\t%s' % host_name)
@@ -83,6 +81,7 @@ class Nagios(object):
             info_list.append('\tescalation_options\t%s' % escalation_options)
         if contact_groups != '':
             info_list.append('\tcontact_groups\t\t\t%s' % contact_groups)
+
         if contacts != '':
             info_list.append("\tcontacts\t\t\t\t%s" % contacts)
         if first_notification != '':
@@ -110,7 +109,7 @@ class Nagios(object):
         if members != '':
             info_list.append('\tmembers\t\t\t%s' % members)
         if servicegroup_members != '':
-            info_list.append('\tservicegroup_members\t\t\t%s' 
+            info_list.append('\tservicegroup_members\t\t\t%s'
                                 % servicegroup_members)
 
         info_list.append('\t}\n')
@@ -124,14 +123,14 @@ class Nagios(object):
                  info_list=['define service{','\tuse\t\t\t%s' % (use)]
                  
                  if hostgroup_name != '':
-                     info_list.append('\thostgroup_name\t\t%s' 
+                     info_list.append('\thostgroup_name\t\t%s'
                                          % hostgroup_name)
                  if register != '':
                      info_list.append('\tregister\t\t%s' % register)
                  if name != '':
                      info_list.append('\tname\t\t\t%s' % name)
                  if notification_period != '':
-                     info_list.append("\tnotification_period\t%s" 
+                     info_list.append("\tnotification_period\t%s"
                                          % notification_period)
                  if contact_groups != '':
                      info_list.append("\tcontact_groups\t\t%s"
@@ -140,7 +139,7 @@ class Nagios(object):
                      info_list.append("\tcontacts\t\t\t\t%s"
                                          % contacts)
                  if notification_interval != '':
-                     info_list.append('\tnotification_interval\t\t%s' 
+                     info_list.append('\tnotification_interval\t\t%s'
                                         % notification_interval)
                  if notifications_enabled != '':
                      info_list.append('\tnotifications_enabled\t\t%s'
@@ -168,7 +167,7 @@ class Nagios(object):
                  info_list=['define serviceescalation{']
         
                  if hostgroup_name != '':
-                     info_list.append('\thostgroup_name\t\t\t%s' 
+                     info_list.append('\thostgroup_name\t\t\t%s'
                                          % hostgroup_name)
                  if host_name != '':
                      info_list.append('\thost_name\t\t%s' % host_name)
@@ -190,6 +189,45 @@ class Nagios(object):
 
                  info_list.append('\t}\n')
                  return '\n'.join(info_list)
+
+    def contact(self,use='',contact_name='',alias='',email='',
+                 host_notifications_enabled='',
+                 service_notifications_enabled=''):
+        info_list=['define contact{']
+
+        if use != '':
+            info_list.append('\tuse\t\t\t\t%s' % use)
+        if contact_name != '':
+            info_list.append('\tcontact_name\t\t\t%s' % contact_name)
+        if alias != '':
+            info_list.append('\talias\t\t\t\t%s' % alias)
+        if email != '':
+            info_list.append('\temail\t\t\t\t%s' % email)
+        if host_notifications_enabled != '':
+            info_list.append('\thost_notifications_enabled\t%s' %
+            host_notifications_enabled)
+        if service_notifications_enabled != '':
+            info_list.append('\tservice_notifications_enabled\t%s' % 
+            service_notifications_enabled)
+
+        info_list.append('\t}\n')
+        return '\n'.join(info_list)
+
+    def contactgroup(self,contactgroup_name='',alias='',members='',
+                     contactgroup_members=''):
+        info_list=['define contactgroup{']
+
+        if contactgroup_name != '':
+            info_list.append('\tcontactgroup_name\t%s' % contactgroup_name)
+        if alias != '':
+            info_list.append('\talias\t\t\t%s' % alias)
+        if members != '':
+            info_list.append('\tmembers\t\t\t%s' % members)
+        if contactgroup_members != '':
+            info_list.append('\tcontactgroup_members\t%s' % contactgroup_members)
+
+        info_list.append('\t}\n')
+        return '\n'.join(info_list)
 
 if __name__=="__main__":
     for arg in argv[1:]:
