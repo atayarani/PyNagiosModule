@@ -3,7 +3,6 @@ from os.path import basename
 from re import match
 from socket import gethostbyname
 from sys import argv
-from time import strftime
 
 class Nagios(object):
 
@@ -11,18 +10,19 @@ class Nagios(object):
         self.config_path="/cfengine/etc/nagios/configs/autogen/"
         self.file=open(self.config_path+filename,'w')
         self.warning=("#\n"
-                    "# PLEASE DO NOT MODIFY THE CONTENTS OF THIS FILE."
-                    "  This file is auto-generated\n"
-                    "# by the `%s` script.\n" 
-                    "#\n"
-                    "# Last generated: %s\n" 
-                    "#\n\n"
-                    % (basename(argv[0]),strftime("%m/%d/%Y %T")))
+                      "# PLEASE DO NOT MODIFY THE CONTENTS OF THIS FILE."
+                      "  This file is auto-generated\n"
+                      "# by the `%s` script.\n"
+                      "#\n"
+                      % basename(argv[0]))
+
+        self.master_host_listing='/sysman/install/broad/master.host.listing'
+        self.MHL=open(self.master_host_listing,'r')
 
     def host(self,use='generic-host',host_name='',address='',alias='',
         name='',register='',hostgroups='',contact_groups='',
         notification_interval='',notification_period='',
-        contacts='',notifications_enabled='',notification_options='',parent='',
+        contacts='',notifications_enabled='',notification_options='',parents='',
         max_check_attempts=''):
 
         info_list=['define host{','\tuse\t\t\t%s' % (use)]
@@ -37,8 +37,8 @@ class Nagios(object):
             info_list.append('\thostgroups\t\t%s' % hostgroups)
         if register != '':
             info_list.append('\tregister\t\t%s' % register)
-        if parent != '':
-            info_list.append('\tparent\t\t\t%s' % parent)
+        if parents != '':
+            info_list.append('\tparents\t\t\t%s' % parents)
         if name != '':
             info_list.append('\tname\t\t\t%s' % name)
         if notification_period != '':
@@ -220,7 +220,7 @@ class Nagios(object):
             info_list.append('\tservice_notifications_enabled\t%s' % 
             service_notifications_enabled)
 
-        info_list.append('\t}\n')
+        info_list.append('\t}\n\n')
         return '\n'.join(info_list)
 
     def contactgroup(self,contactgroup_name='',alias='',members='',
