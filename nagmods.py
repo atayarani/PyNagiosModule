@@ -30,6 +30,7 @@ class Nagios(object):
         contacts='',notifications_enabled='',notification_options='',parents='',
         max_check_attempts='',normal_check_interval='',retry_check_interval='',
         check_command=''):
+        '''Creates host object definitions'''
 
         info_list=['define host{','\tuse\t\t\t%s' % (use)]
 
@@ -78,6 +79,7 @@ class Nagios(object):
         return '\n'.join(info_list)
 
     def hostgroup(self,hostgroup_name='',members='',alias=''):
+        '''Creates Hostgroup object definitions'''
         info_list=['define hostgroup{']
 
         if hostgroup_name != '':
@@ -94,6 +96,7 @@ class Nagios(object):
         service_description='', escalation_options='',
         contact_groups='', first_notification='',
         last_notification='',contacts=''):
+        '''Creates Host Escalation object definitions'''
         info_list=['define serviceescalation{']
 
         if hostgroup_name != '':
@@ -126,6 +129,7 @@ class Nagios(object):
         return _ip if __name__!="__main__" else (_ip,_hostname)
 
     def servicegroup(self,name='',alias='',members='',servicegroup_members=''):
+        '''Creates service group definitions'''
         info_list['define servicegroup{']
 
         if servicegroup_name != '':
@@ -144,6 +148,7 @@ class Nagios(object):
                  notification_interval='',notifications_enabled='',
                  notification_options='',service_description='',host_name='',
                  check_command=''):
+                 '''Creates service object definitions'''
                  info_list=['define service{','\tuse\t\t\t%s' % (use)]
                  
                  if hostgroup_name != '':
@@ -187,6 +192,7 @@ class Nagios(object):
                             service_description='', escalation_options='',
                             contact_groups='', first_notification='',
                             last_notification=''):
+                 '''Creates Service escalation definitions'''
                  info_list=['define serviceescalation{']
         
                  if hostgroup_name != '':
@@ -216,6 +222,7 @@ class Nagios(object):
     def contact(self,use='',contact_name='',alias='',email='',
                  host_notifications_enabled='',
                  service_notifications_enabled=''):
+        '''Create Contact Definitions'''
         info_list=['define contact{']
 
         if use != '':
@@ -238,6 +245,7 @@ class Nagios(object):
 
     def contactgroup(self,contactgroup_name='',alias='',members='',
                      contactgroup_members=''):
+        '''Create contact groups'''
         info_list=['define contactgroup{']
 
         if contactgroup_name != '':
