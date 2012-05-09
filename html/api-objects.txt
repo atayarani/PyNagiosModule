@@ -1,0 +1,12 @@
+nagmods	nagmods-module.html
+nagmods.Nagios	nagmods.Nagios-class.html
+nagmods.Nagios.servicegroup	nagmods.Nagios-class.html#servicegroup
+nagmods.Nagios.serviceescalations	nagmods.Nagios-class.html#serviceescalations
+nagmods.Nagios.contactgroup	nagmods.Nagios-class.html#contactgroup
+nagmods.Nagios.hostgroup	nagmods.Nagios-class.html#hostgroup
+nagmods.Nagios.host	nagmods.Nagios-class.html#host
+nagmods.Nagios.contact	nagmods.Nagios-class.html#contact
+nagmods.Nagios.services	nagmods.Nagios-class.html#services
+nagmods.Nagios.getIP	nagmods.Nagios-class.html#getIP
+nagmods.Nagios.hostescalation	nagmods.Nagios-class.html#hostescalation
+nagmods.Nagios.__init__	nagmods.Nagios-class.html#__init__
