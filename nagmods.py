@@ -17,7 +17,7 @@ class Nagios(object):
                       "#\n"
                       % basename(argv[0]))
 
-        self.master_host_listing='/sysman/install/broad/master.host.listing'
+        self.master_host_listing='' #Flat file for DNS/DHCP info -- probably need to change this
         self.MHL=open(self.master_host_listing,'r')
 
     def host(self,use='generic-host',host_name='',address='',alias='',
